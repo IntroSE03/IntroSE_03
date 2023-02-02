@@ -1,3 +1,3 @@
 # IntroSE_03
 
-Add Description, Objectives, and Features of the Poject
+Add Description, Objectives, and Features of the Project
