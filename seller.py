@@ -39,3 +39,19 @@ class Seller(User):
                 print("That ISBN already exists in the database :(")
             cursor.close()
             connection.close()
+
+    def remInv(self, cursor, connection):
+        item = input("ISBN of product to Remove: ")
+        print("Please input password below to verify deleting this entry: ")
+        check = self.checkPassword(cursor)
+        if(check == True):
+            query = "DELETE FROM cart WHERE ISBN=%s"
+            data = (item,)
+            cursor.execute(query, data)
+            connection.commit()
+            print(cursor.rowcount, "record deleted.")
+        else:
+            print("Could not delete item")
+        cursor.close()
+        connection.close()
+
