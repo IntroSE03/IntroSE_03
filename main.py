@@ -16,14 +16,22 @@ def Connect_db():
         print("Failed connection.")
         sys.exit()
 
-def Curr_user(cursor):
+def Select_user(cursor):
     u = login(cursor)
-    return Seller(u.userid,u.firstname,u.lastname,u.password,u.telephone,u.email,u.userType)
-
+    query = ("SELECT usertype FROM people WHERE userid = %s")
+    cursor.execute(query, (u.userid,))
+    res = cursor.fetchall()
+    if(res == "S"):
+        return Seller(u.userid,u.firstname,u.lastname,u.password,u.telephone,u.email,u.userType)
+    elif(res == "C"):
+        print("This is for a customer user, functionality has not been added yet")
+    elif(res == "A"):
+        print("This is for an admin user, functionality has not been added yet")
 
 def main():
     connection, cursor = Connect_db()
-    curr_user = Curr_user(cursor)
+    curr_user = Select_user(cursor)
+
     curr_user.addInv(cursor,connection)
 
 main()
