@@ -7,10 +7,10 @@ jobs:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
-      - run:
+    - run:
           name: The First Step
           command: |
             echo 'Hello World!'
             echo 'This is the delivery pipeline'
-      - store_test_results:
+    - store_test_results:
       path: test-results
