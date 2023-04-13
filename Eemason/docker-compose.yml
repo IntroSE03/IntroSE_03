@@ -4,7 +4,7 @@ services:
     python:
         image: python:3.6
         volumes:
-            - ./Eshop-main:/Eshop-main
+            - ./Eemason:/Eemason
         ports:
             - 8000:8000
-        command: bash -c "cd ./Eshop-main && pip install -r requirements.txt && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+        command: bash -c "cd ./Eemason && pip install -r requirements.txt && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
