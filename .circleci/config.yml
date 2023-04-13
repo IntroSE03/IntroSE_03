@@ -19,7 +19,6 @@ jobs:
             pipenv run pytest --version
           name: Test it
     steps:
-    
       - run:
           name: run tests
           command: |
