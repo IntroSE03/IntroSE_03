@@ -7,9 +7,14 @@ jobs:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
-    - run:
-          name: The First Step
+    
+      - run:
+          name: run tests
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
-    - store_test_results:
+            . venv/bin/activate
+            mkdir test-results
+            pytest --junitxml=test-results/junit.xml tests
+
+      - store_test_results:
+          path: test-results
+
