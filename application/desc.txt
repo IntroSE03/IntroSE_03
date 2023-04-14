@@ -1,1 +1,0 @@
-This folder contains initialisation scripts and other files required to run the application.
