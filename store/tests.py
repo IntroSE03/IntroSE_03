@@ -13,20 +13,10 @@ from django.contrib.sessions import *
 from django.contrib import admin
 import json
 
-#admin: 6/5
-#cust: 6/5
-#login: 3/5
+if __name__ == '__main__':
+    unittest.main()
 
-#to test: django user creation, login, what does login actually return
 
-#potentially: admin(6/5),customer(6/5), login(4/5)
-#done: 6/15
-#maybe done 13/15
-#todo: 2/17
-
-#issues login and cust stuff all require figuring out how to get django logged in and a persistent db
-## this will require figuring out how to authenticate past the middleware
-# admin requires a db and figuring out the django admin functions to edit DB attributes
 class TestViews(SimpleTestCase):
     # tests that the login url is resolved correctly
     def test_login_url_is_resolved(self):
@@ -41,6 +31,10 @@ class TestViews(SimpleTestCase):
         page = '/login'
         response = self.client.get(page, follow=True)
         self.assertEquals(response.status_code, 200)
+    def test_login_signupfunc(self):
+        page = '/signup'
+        response = self.client.get(page, follow = True)
+        self.assertEquals(response.status_code,200)
     def test_customer_cart_view(self):
         url = reverse('test_cart')
         self.assertEquals(resolve(url).func.view_class, Cart)
@@ -49,32 +43,10 @@ class TestViews(SimpleTestCase):
         self.assertEquals(resolve(url).func.view_class, OrderView)
     def test_customer_return_view(self):
         url = reverse('test_returns')
+        resolved = str(resolve(url).func.view_class)
+        returnview = str(ReturnView)
+        assert(resolved in returnview)
         self.assertEquals(resolve(url).func.view_class, ReturnView)
-    # def test_editr(self):
-    #     page = '/admin/login/?next=/admin'
-    #     response = self.client.get(page, follow=True)
-    #     self.assertEquals(response.status_code, 200)
-# class AdminFailSetup(TestCase):
-#     def setUp(self):
-#         self.client = Client()
-#     def create_user(self):
-#         username, password = 'admin', 'password'
-#         user = User.objects.create_user(
-#             username = username,
-#             email = 'admin@admin.ca',
-#             is_superuser = False
-#         ) [0]
-#         user.set_password(password)
-#         user.save()
-#         self.user = user
-# class TestFailLogin(AdminFailSetup):
-#     def test_login_admin_fail(self):
-#         self.client.login(username='notadmin',password = 'incorrect')
-#         page = '/admin/store/customer'
-#         response = self.client.get(page, follow=True)
-#         self.assertEquals(response.status_code, 200)
-#         self.assertTemplateUsed(response, 'admin/login.html')
-#         self.assertTemplateUsed(response, 'admin/base_site.html')
 class TestCustViews(TestCase):
     #tests that the customer can view the homepage of the store
     def test_customer_view_home(self):
@@ -98,42 +70,6 @@ class TestCustViews(TestCase):
         else:
             datareturned = True
         assert(datareturned)
-    # def test_customer_cart_GET(self):
-    #     client = Client()
-    #     cust = Customer.objects.create(
-    #         first_name = 'admin',
-    #         last_name = 'admin',
-    #         phone = '1234567890',
-    #         email = 'admin@admin.ca',
-    #         password = 'password',
-    #         susFlag = 0
-    #     )
-    #     #cust.register()
-    #     #cust.save()
-    #     #self.customer = cust
-    #     querydict = {'email':['admin@admin.ca'],'password' : ['password']}
-    #     fake_request = HttpRequest()
-    #     fake_request.user = client
-    #     #fake_request.META['SERVER_NAME'] = store.domain
-    #     fake_request.META['SERVER_PORT'] = 8000
-    #     fake_request.META['email'] = 'admin@admin.ca'
-    #     fake_request.META['password'] = 'password'
-    #    # s = SessionStore()
-    #     #s.create()
-    #    # s = request.session.session_key
-    #     #fake_request.session = s
-    #     Login.post(self,fake_request)
-    #     response = client.get(reverse('cart'))
-    #     #self.assertEquals(response.status_code, 200)
-    #     assert('uwu' == 'uwu')
-
-
-    # # tests that the custome
-    # def test_cart_page(self):
-    #     page = '/returns'
-    #     response = self.client.get(page, follow=True)
-    #     self.assertEquals(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'base.html')
 class AdminSetup(TestCase):
     def setUp(self):
         self.client = Client()
@@ -164,13 +100,13 @@ class TestAdminViews(AdminSetup):
         page = '/admin/store/customer/'
         response = self.client.get(page, follow=True)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'django/forms/attrs.html')
+        self.assertTemplateUsed(response, 'admin/base.html')
     #tests that the admin can view products and product suspension information (susFlag)
     def test_admin_view_products(self):
         page = '/admin/store/products/'
         response = self.client.get(page, follow=True)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'django/forms/attrs.html')
+        self.assertTemplateUsed(response, 'admin/base_site.html')
     #tests that the admin can reach the page to edit products and change the product suspension flag, checks access to the products
     def test_admin_edit_inv(self):
         page = '/admin/store/products/70/change/'
