@@ -4,6 +4,7 @@ from .models.category import Category
 from .models.customer import Customer
 from .models.orders import Order
 from .models.returns import Return
+from .models.seller import Seller
 
 class AdminProduct(admin.ModelAdmin):
     list_display = ['name', 'price', 'category', 'image', 'susFlag']
