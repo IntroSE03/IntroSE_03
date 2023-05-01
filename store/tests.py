@@ -138,4 +138,4 @@ class TestSellerView(TestCase):
    # tests that the sellersignup view is called correctly     
     def test_seller_signup_view(self):
         url = reverse('sellersignup')
-        self.assertEquals(resolve(url).func.view_class, sellersignup)
+        self.assertEquals(resolve(url).func.view_class, Sellersignup)
