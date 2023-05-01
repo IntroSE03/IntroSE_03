@@ -131,6 +131,6 @@ class TestAdminViews(AdminSetup):
         
 class TestSellerView(TestCase):
     def test_seller_signup(self):
-        page = '/sellersignup/'
+        page = '/sellersignup'
         response = self.client.get(page, follow=True)
         self.assertEquals(response.status_code,200)
