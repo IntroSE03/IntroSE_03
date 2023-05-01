@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.urls import reverse, resolve
 from store.views.login import Login
 from store.views.signup import Signup
+from store.views.sellersignup import Sellersignup
 from store.models import *
 from django.http import HttpRequest
 from .views.cart import Cart
