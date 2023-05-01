@@ -127,3 +127,10 @@ class TestAdminViews(AdminSetup):
         page = '/admin/store/return/6/change/'
         response = self.client.get(page, follow=True)
         self.assertEquals(response.status_code, 200)
+
+        
+class TestSellerView(TestCase):
+    def test_seller_signup(self):
+        page = '/sellersignup/'
+        response = self.client.get(page, follow=True)
+        self.assertEquals(response.status_code,200)
