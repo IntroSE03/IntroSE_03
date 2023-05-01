@@ -25,13 +25,16 @@ class ReturnAdmin(admin.ModelAdmin):
     list_display = ['customer', 'product', 'date', 'status']
     list_filter = ['customer', 'date', 'status']
 
+class SellerAdmin(admin.ModelAdmin):
+    list_display = ['email', 'first_name', 'last_name', 'username']    
+    
 # Register your models here.
 admin.site.register(Products,AdminProduct)
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Order,OrderAdmin)
 admin.site.register(Return,ReturnAdmin)
-
+admin.site.register(Seller,SellerAdmin)
 
 
 # username = Tanushree, email = tanushree7252@gmail.com, password = 1234
