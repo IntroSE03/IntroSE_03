@@ -134,3 +134,7 @@ class TestSellerView(TestCase):
         page = '/sellersignup'
         response = self.client.get(page, follow=True)
         self.assertEquals(response.status_code,200)
+        
+    def test_seller_signup_view(self):
+        url = reverse('sellersignup')
+        self.assertEquals(resolve(url).func.view_class, Sellersignup)
