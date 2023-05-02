@@ -29,3 +29,10 @@ class Seller(models.Model):
         return self.email
 
 
+def test_seller(fname,lname,email,username):
+    tseller = Seller(fname,lname,email,username)
+    tseller.first_name = fname
+    tseller.last_name = lname
+    tseller.email = email
+    tseller.username = username
+    return tseller
