@@ -140,3 +140,9 @@ class TestSellerView(TestCase):
     def test_seller_signup_view(self):
         url = reverse('sellersignup')
         self.assertEquals(resolve(url).func.view_class, Sellersignup)
+    # ensures that a seller cannot be returned true if the email does not exist
+    def test_seller_email_retrieve(self):
+        testr = test_seller("test","test","seller@eemason.ca","test")
+        data = testr.get_customer_by_email("seller@eemazon.ca")
+        print(data)
+        self.assertEquals(data,False)
