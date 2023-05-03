@@ -152,3 +152,10 @@ class TestSellerView(TestCase):
         testr = test_seller("test","test","seller@eemason.ca","test")
         data = testr.isExists()
         self.assertEquals(data,False)
+    # tests to make sure seller data is setting correctly)
+    def test_seller_magasin_données(self):
+        testr = test_seller("testF","testL","seller@eemason.ca","testU")
+        self.assertEquals(testr.first_name,"testF")
+        self.assertEquals(testr.last_name,"testL")
+        self.assertEquals(testr.email,"seller@eemason.ca")
+        self.assertEquals(testr.username,"testU")
