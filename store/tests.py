@@ -146,3 +146,8 @@ class TestSellerView(TestCase):
         data = testr.get_customer_by_email("seller@eemazon.ca")
         print(data)
         self.assertEquals(data,False)
+    # tests to make sure that the database reports existence correctly, and returns False when a seller is not registered
+    def test_seller_exists(self):
+        testr = test_seller("test","test","seller@eemason.ca","test")
+        data = testr.isExists()
+        self.assertEquals(data,False)
