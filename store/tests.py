@@ -12,6 +12,8 @@ from .views.returns import ReturnView
 from .views.orders import OrderView
 from django.contrib.sessions import *
 from django.contrib import admin
+from store.models import seller
+from store.models.seller import test_seller
 import json
 
 if __name__ == '__main__':
