@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.urls import reverse, resolve
 from store.views.login import Login
 from store.views.signup import Signup
+from store.views.sellersignup import Sellersignup
 from store.models import *
 from django.http import HttpRequest
 from .views.cart import Cart
@@ -11,6 +12,8 @@ from .views.returns import ReturnView
 from .views.orders import OrderView
 from django.contrib.sessions import *
 from django.contrib import admin
+from store.models import seller
+from store.models.seller import test_seller
 import json
 
 if __name__ == '__main__':
@@ -127,3 +130,32 @@ class TestAdminViews(AdminSetup):
         page = '/admin/store/return/6/change/'
         response = self.client.get(page, follow=True)
         self.assertEquals(response.status_code, 200)
+
+        
+class TestSellerView(TestCase):
+    # tests that the seller signup page returns correctly
+    def test_seller_signup(self):
+        page = '/sellersignup'
+        response = self.client.get(page, follow=True)
+        self.assertEquals(response.status_code,200)
+   # tests that the sellersignup view is called correctly     
+    def test_seller_signup_view(self):
+        url = reverse('sellersignup')
+        self.assertEquals(resolve(url).func.view_class, Sellersignup)
+    # ensures that a seller cannot be returned true if the email does not exist
+    def test_seller_email_retrieve(self):
+        testr = test_seller("test","test","seller@eemason.ca","test")
+        data = testr.get_customer_by_email("seller@eemazon.ca")
+        self.assertEquals(data,False)
+    # tests to make sure that the database reports existence correctly, and returns False when a seller is not registered
+    def test_seller_exists(self):
+        testr = test_seller("test","test","seller@eemason.ca","test")
+        data = testr.isExists()
+        self.assertEquals(data,False)
+    # tests to make sure seller data is setting correctly)
+    def test_seller_magasin_données(self):
+        testr = test_seller("testF","testL","seller@eemason.ca","testU")
+        self.assertEquals(testr.first_name,"testF")
+        self.assertEquals(testr.last_name,"testL")
+        self.assertEquals(testr.email,"seller@eemason.ca")
+        self.assertEquals(testr.username,"testU")
